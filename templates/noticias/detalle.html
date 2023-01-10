@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} NOTICIAS {% endblock titulo %}
+
+{% block contenido %}
+<div class="volver-pag-detalle">
+    <a href="{% url 'noticias:listar' %}"><span class="material-symbols-outlined" style="font-size:50px;">
+            arrow_back_ios
+        </span></a>
+</div> 
+<div class="caja-detallar-noticias">
+    <div class="sub-caja-detallar">
+        <h1>{{noticia.titulo}}</h1>
+        <div class="imagen-caja-detallar">
+            <img class="imagen-detallar" src="{{noticia.imagen.url}}" alt="">
+        </div>
+        <span class="info-noticias-detalle"><p>FECHA: {{noticia.fecha}} CATEGORIA: {{noticia.categoria_noticia}} TITULO: {{noticia.titulo}}</p></span>
+        <div class="cuerpo-noticia-detalle">
+           <p>CUERPO: {{noticia.cuerpo}}</p>
+        </div>
+    </div>
+</div>
+<div class="comentarios-background">
+    <div class="caja-comentarios">
+        <h3>Dejanos tu Comentario</h3>
+        <form method="post" action="{% url 'noticias:comentar' %}">{% csrf_token %}
+            <textarea name="comentario" maxlength="1500" placeholder="agrega un comentario"> </textarea>
+		    <input type="text" name="id_noticia" value="{{noticia.pk}}" hidden="">
+            <div class="boton-comentario">
+		        <input type="submit" value="Comentar">
+            </div>
+        </form>
+        <br><br>
+        {% for com in comentarios %}
+            <h4>>{{com.usuario}}, {{com.fecha}}</h4>
+            <p>{{com.texto}}</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock contenido %}

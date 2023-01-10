@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/nuevologo.ico'%}">
+    <title>Fundacion | {% block titulo %} {% endblock titulo %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css'%}">
+    <script src="https://kit.fontawesome.com/16f1912faa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Coda+Caption&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <label class="logo">Amigos del <span class="arte-titulo">Arte</span> y <span class="turismo-titulo">Turismo</label>
+        <ul>
+            <li><a class="active-a" href="{% url 'home' %}">home</a></li>
+            <li><a class="active-a" href="{% url 'noticias:listar' %}">noticias</a></li>
+            <li><a class="active-a" href="{% url 'nosotros' %}">Nosotros</a></li>
+            <li>
+                {% if user.is_authenticated %}
+                <a class="active-a">Hola, {{user.username }}</a>
+            </li>
+            <a class="active-logout" href="{% url 'logout' %}">LOGOUT</a>
+            {% else %}
+            <li><a class="active-a" href="{% url 'login' %}">Logeo</a></li>
+            <li><a class="active-a" href="{% url 'usuarios:registro' %}">Registrarse</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% block contenido %}
+
+    {% endblock contenido %}
+    
+    <footer class="pie-pagina">
+        <div class="redes-text">
+            <h4>Redes y Lugar de Contacto</h4>
+        </div>
+        <div class="social-media">
+            <div class="icon facebook">
+                <div class="tooltip">Facebook</div>
+                <a href="https://www.facebook.com/EscultoresenelImpenetrable" target="_blank"><span><i class="fab fa-facebook-f"></i></span></a>
+            </div>
+            <div class="icon instagram">
+                <div class="tooltip">Instagram</div>
+                <a href="https://www.instagram.com/fundacion__amigos/" target="_blank"><span><i class="fab fa-instagram"></i></span></a>
+            </div>
+            <div class="icon correo">
+                <div class="tooltip">info@amigosdelarteyturismo.org</div>
+                <span><i class="fa-regular fa-envelope"></i></span>
+            </div>
+            <div class="icon ubicacion">
+                <div class="tooltip">Ubicacion</div>
+                <a href="https://www.google.com.ar/maps/place/Fundaci%C3%B3n+Amigos+del+Arte+y+Turismo/@-25.9456008,-60.6207856,19z/data=!4m5!3m4!1s0x94404cfba5224f0b:0xbe1797f5f1777f83!8m2!3d-25.9455663!4d-60.6203754?hl=es" target="_blank"><span><i class="fa-solid fa-location-pin"></i></span></a>
+            </div>
+        </div>
+        <div class="copy">
+            <p>@Copyright GRUPO 8 2022</p>
+        </div>
+        
+    </footer>
+
+</body>
+
+</html>
